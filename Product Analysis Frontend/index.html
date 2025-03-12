@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Review Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="logo.png" alt="Logo" class="logo">
+            <h1>Review Analyzer</h1>
+         </div>
+        <button id="theme-toggle" class="theme-btn">🌙</button>
+    </nav>
+
+    <h2>Submit Product Link</h2>
+    <p>Enter product URL and select type to analyze reviews</p>
+
+    <div class="input-section">
+        <input type="text" placeholder="https://example.com/product" class="input-box">
+        <select class="input-box">
+            <option value="" disabled selected>Select product type</option>
+            <option value="electronics">Electronics</option>
+            <option value="appliances">Home Appliances</option>
+        </select>
+        <button class="analyze-btn">Analyze</button>
+    </div>
+
+    <h3>Review Analysis</h3>
+    <div class="review-section">
+        <div class="review-box positive">
+            <h4>👍 Positive Comments</h4>
+            <p>Great battery life Excellent customer service High quality materials Fast shipping Easy to use interface Perfect size for my needs Impressive sound quality Worth every penny</p>
+        </div>
+
+        <div class="review-box neutral">
+            <h4>🔍 Neutral Comments</h4>
+            <p>Average shipping time Decent value for money Standard packaging Okay performance Expected quality Reasonable price point Typical features Neither impressive nor disappointing</p>
+        </div>
+
+        <div class="review-box negative">
+            <h4>👎 Negative Comments</h4>
+            <p>Size discrepancy Missing accessories Difficult setup process Poor battery life Overpriced for features Flimsy construction Confusing instructions Customer service unresponsive</p>
+        </div>
+    </div>
+
+    <h3>Final Analysis</h3>
+    <div class="final-analysis">
+        <h4>Final Score: <span class="score">7.8/10</span></h4>
+        <h3 class="recommendation">Purchase Recommendation</h3>
+        <p>Based on 64 reviews analyzed, this product scores 7.8/10. Recommended for purchase with minor considerations about sizing issues mentioned in reviews. Positive aspects include battery life, customer service, and build quality. Main concerns are size discrepancies and occasional missing accessories.</p>
+    </div>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
