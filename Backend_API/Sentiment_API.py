@@ -18,7 +18,7 @@ def Fetch_Product_reviews():
 
         print("Fetching reviews...")  # Debugging
         reviews_df = Fetch_Review(url, review_type)
-        print("Fetched reviews:", reviews_df)  # Debugging
+        print("Fetched reviews:completed")  # Debugging
 
         if isinstance(reviews_df, dict) and "error" in reviews_df:
             return jsonify(reviews_df), 400
