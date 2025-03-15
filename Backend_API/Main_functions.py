@@ -175,10 +175,16 @@ def sentiment_report(df):
         negative = final_report[final_report['sentiment'] == 'negative'].shape[0]
         neutral = final_report[final_report['sentiment'] == 'neutral'].shape[0]
 
-        # Calculate percentages safely
-        positive_percentage = (positive / total) * 100
-        negative_percentage = (negative / total) * 100
-        neutral_percentage = (neutral / total) * 100
+        # # Calculate percentages safely
+        # positive_percentage = (positive / total) * 100
+        # negative_percentage = (negative / total) * 100
+        # neutral_percentage = (neutral / total) * 100
+
+        # Calculate percentages safely with three decimal places
+        positive_percentage = round((positive / total) * 100, 3)
+        negative_percentage = round((negative / total) * 100, 3)
+        neutral_percentage = round((neutral / total) * 100, 3)
+
 
         return positive_percentage, negative_percentage, neutral_percentage
 
