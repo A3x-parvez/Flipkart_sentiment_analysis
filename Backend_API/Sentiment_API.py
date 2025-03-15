@@ -25,11 +25,11 @@ def Fetch_Product_reviews():
 
         print("Classifying sentiment...")  # Debugging
         sentiment_df = Check_sentiment(reviews_df)
-        print("Classified sentiment:", sentiment_df)  # Debugging
+        print("Classified sentiment:Completed")  # Debugging
 
         print("Extracting review lists...")  # Debugging
         positive_reviews, negative_reviews, neutral_reviews = get_review_text(sentiment_df)
-        print("Extracted lists:", positive_reviews, negative_reviews, neutral_reviews)  # Debugging
+        print("Extracted lists:Completed")  # Debugging
 
         print("Calculating sentiment percentages...")  # Debugging
         sentiment_percentages = sentiment_report(sentiment_df)
@@ -42,7 +42,7 @@ def Fetch_Product_reviews():
                 "neutral_percentage": sentiment_percentages[2]
             }
 
-        print("Sentiment percentages:", sentiment_percentages)  # Debugging
+        print("Sentiment percentages:Completed")  # Debugging
 
         # Final API response
         response = {
