@@ -148,8 +148,8 @@ def get_review_text(final_df):
         return positive_reviews, negative_reviews, neutral_reviews
 
     except Exception as e:
-        return {"error": f"An unexpected error occurred: {e}"}
-
+        return{"error": f"An unexpected error occurred: {e}"}
+    
 
 # Final product report
 def sentiment_report(df):

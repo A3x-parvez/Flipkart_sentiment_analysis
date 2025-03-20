@@ -21,11 +21,11 @@
     <p>Enter product URL and select type to analyze reviews</p>
 
     <div class="input-section">
-        <input type="text" placeholder="https://example.com/product" class="input-box">
-        <select class="input-box">
+        <input type="text" placeholder="https://example.com/product" class="input-box" id="input-url">
+        <select class="input-box" id="input-type">
             <option value="" disabled selected>Select product type</option>
-            <option value="electronics">Electronics</option>
-            <option value="appliances">Home Appliances</option>
+            <option value='single'>Single Reviews</option>
+            <option value='multiple'>Multiple Reviews</option>
         </select>
         <button class="analyze-btn">Analyze</button>
     </div>
@@ -57,5 +57,8 @@
     
 
     <script src="script.js"></script>
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 </body>
 </html>

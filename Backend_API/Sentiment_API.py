@@ -1,11 +1,15 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 import json
+from flask_cors import CORS
 
 # Import your original functions exactly as defined in Main_functions.py
 from Main_functions import Fetch_Review, Check_sentiment, get_review_text, sentiment_report
 
+
 app = Flask(__name__)
+CORS(app)
+
 
 @app.route('/Fetch_Product_reviews', methods=['GET'])
 def Fetch_Product_reviews():
