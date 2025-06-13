@@ -6,67 +6,151 @@ import re
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
 
-# Where the Main and sub Review are present
+# # Where the Main and sub Review are present
+# def fetch_reviews_multiple(url, start=1, end=20):
+#     reviews_list = []
+
+#     for i in range(start, end + 1):
+#         try:
+#             url_page = f"{url}&page={i}"
+#             response = requests.get(url_page, timeout=10)
+#             response.raise_for_status()  # Raise HTTPError for bad responses
+            
+#             soup = BeautifulSoup(response.content, 'html.parser')
+#             reviews_container = soup.find_all("div", class_="cPHDOP col-12-12")
+#             if not reviews_container:
+#                 continue  # Skip pages with no reviews
+
+#             review_divs = soup.find_all("div", class_="ZmyHeo")
+#             for div in review_divs:
+#                 try:
+#                     review_text = div.div.text.strip()
+#                     review_text = review_text.replace("READ MORE", "")
+#                     reviews_list.append(review_text)
+#                 except AttributeError:
+#                     continue  # Skip any malformed review elements
+
+#         except requests.exceptions.RequestException as e:
+#             print(f"Error fetching page {i}: {e}")
+#             continue  # Skip this page and move to the next
+
+#     return pd.DataFrame({'review': reviews_list})
+
+
+# # Where the Main and sub Review are present:latest version with error handling and headers
 def fetch_reviews_multiple(url, start=1, end=20):
     reviews_list = []
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'Accept-Language': 'en-US,en;q=0.9'
+    }
 
     for i in range(start, end + 1):
         try:
             url_page = f"{url}&page={i}"
-            response = requests.get(url_page, timeout=10)
-            response.raise_for_status()  # Raise HTTPError for bad responses
-            
+            print(f"Fetching: {url_page}")
+
+            response = requests.get(url_page, headers=headers, timeout=20)
+            response.raise_for_status()
+
             soup = BeautifulSoup(response.content, 'html.parser')
+
             reviews_container = soup.find_all("div", class_="cPHDOP col-12-12")
             if not reviews_container:
-                continue  # Skip pages with no reviews
+                print(f"No reviews found on page {i}")
+                continue
 
             review_divs = soup.find_all("div", class_="ZmyHeo")
             for div in review_divs:
                 try:
-                    review_text = div.div.text.strip()
-                    review_text = review_text.replace("READ MORE", "")
-                    reviews_list.append(review_text)
+                    review_text_div = div.find("div")
+                    if review_text_div:
+                        review_text = review_text_div.get_text(strip=True).replace("READ MORE", "")
+                        reviews_list.append(review_text)
                 except AttributeError:
-                    continue  # Skip any malformed review elements
+                    continue
 
+        except requests.exceptions.Timeout:
+            print(f"Timeout on page {i}. Skipping...")
+            continue
         except requests.exceptions.RequestException as e:
             print(f"Error fetching page {i}: {e}")
-            continue  # Skip this page and move to the next
+            continue
 
     return pd.DataFrame({'review': reviews_list})
 
+# # Where the Single Review is present
+# def fetch_reviews_single(url, start=1, end=20):
+#     reviews_list = []
 
-# Where the Single Review is present
+#     for i in range(start, end + 1):
+#         try:
+#             url_page = f"{url}&page={i}"
+#             response = requests.get(url_page, timeout=10)
+#             response.raise_for_status()  # Raise HTTPError for bad responses
+
+#             soup = BeautifulSoup(response.content, 'html.parser')
+#             reviews_container = soup.find_all("div", class_="ZmyHeo MDcJkH")
+#             if not reviews_container:
+#                 continue  # Skip pages with no reviews
+
+#             review_divs = soup.find_all("div", class_="_11pzQk")
+#             for div in review_divs:
+#                 try:
+#                     review_text = div.get_text(strip=True)
+#                     review_text = review_text.replace("READ MORE", "")
+#                     reviews_list.append(review_text)
+#                 except AttributeError:
+#                     continue  # Skip any malformed review elements
+
+#         except requests.exceptions.RequestException as e:
+#             print(f"Error fetching page {i}: {e}")
+#             continue  # Skip this page and move to the next
+
+#     return pd.DataFrame({'review': reviews_list})
+
+
+# # Where the Single Review is present:latest version with error handling and headers
 def fetch_reviews_single(url, start=1, end=20):
     reviews_list = []
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'Accept-Language': 'en-US,en;q=0.9'
+    }
 
     for i in range(start, end + 1):
         try:
             url_page = f"{url}&page={i}"
-            response = requests.get(url_page, timeout=10)
-            response.raise_for_status()  # Raise HTTPError for bad responses
+            print(f"Fetching: {url_page}")
+
+            response = requests.get(url_page, headers=headers, timeout=20)
+            response.raise_for_status()
 
             soup = BeautifulSoup(response.content, 'html.parser')
+
             reviews_container = soup.find_all("div", class_="ZmyHeo MDcJkH")
             if not reviews_container:
-                continue  # Skip pages with no reviews
+                print(f"No reviews found on page {i}")
+                continue
 
             review_divs = soup.find_all("div", class_="_11pzQk")
             for div in review_divs:
                 try:
-                    review_text = div.get_text(strip=True)
-                    review_text = review_text.replace("READ MORE", "")
+                    review_text = div.get_text(strip=True).replace("READ MORE", "")
                     reviews_list.append(review_text)
                 except AttributeError:
-                    continue  # Skip any malformed review elements
+                    continue
 
+        except requests.exceptions.Timeout:
+            print(f"Timeout on page {i}. Skipping...")
+            continue
         except requests.exceptions.RequestException as e:
             print(f"Error fetching page {i}: {e}")
-            continue  # Skip this page and move to the next
+            continue
 
     return pd.DataFrame({'review': reviews_list})
-
 
 # Final function for fetch reviews of the product this function internally call fetch_reviews_multiple and fetch_reviews_single based on the parameters
 def Fetch_Review(url, Type='multiple'):
